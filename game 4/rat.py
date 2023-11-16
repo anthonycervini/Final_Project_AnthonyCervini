@@ -9,7 +9,7 @@ MIN_SPEED = 1.0
 class Rat(pygame.sprite.Sprite):
     def __init__(self,x,y):
         super().__init__()
-        self.image = pygame.image.load("assets/sprites/rat.png").convert()
+        self.image = pygame.image.load("../assets/sprites/rat.png").convert()
         self.image.set_colorkey((255,255,255))
         self.rect = self.image.get_rect()
         self.x = x
