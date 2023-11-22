@@ -66,7 +66,7 @@ while lives > 0 and running:
             if event.key == pygame.K_RIGHT:
                 gunner.move_right()
 
-    #draw the background
+    #update the background
     screen.blit(background, (0, 0))
     #draw enemies
     rats.update()
