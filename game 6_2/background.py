@@ -3,6 +3,7 @@ import random
 from parameters import *
 from rat import Rat, rats
 from food import Food, foods
+from cottoncandy import Cotton, cottons
 
 #loading the established background
 def draw_background(filth):
@@ -32,3 +33,12 @@ def add_food(num_foods):
     for _ in range(num_foods):
         foods.add(Food(random.randint(10, 790),
                      random.randint(0, 0)))
+
+def add_cottoncandy(num_cottons):
+    for _ in range(num_cottons):
+        cottons.add(Cotton(random.randint(10, 790),
+                       random.randint(0, 0)))
+
+# def add_lives(num_lives):
+#     for _ in range(num_lives):
+#         num_lives += 1

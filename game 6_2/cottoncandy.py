@@ -4,13 +4,13 @@ import pygame
 import random
 from parameters import *
 
-MAX_SPEED = 3.5
-MIN_SPEED = 1.0
+MAX_SPEED = 4.5
+MIN_SPEED = 2.5
 
-class Food(pygame.sprite.Sprite):
+class Cotton(pygame.sprite.Sprite):
     def __init__(self,x,y):
         super().__init__()
-        self.image = pygame.image.load("../assets/sprites/food.jpg").convert()
+        self.image = pygame.image.load("../assets/sprites/cotton_candy.jpg").convert()
         self.image.set_colorkey((255,255,255))
         self.rect = self.image.get_rect()
         self.x = x
@@ -25,4 +25,4 @@ class Food(pygame.sprite.Sprite):
     def draw(self, filth):
         filth.blit(self.image, self.rect)
 
-foods = pygame.sprite.Group()
+cottons = pygame.sprite.Group()
