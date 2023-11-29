@@ -1,4 +1,5 @@
 import pygame
+from pygame import mixer
 import random
 import sys
 
@@ -15,6 +16,12 @@ pygame.init()
 #loading the screen
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption('raccoon unleashed')
+
+#adding background music to play continuously
+mixer.init()
+mixer.music.load("../assets/sounds/electronic.ogg")
+mixer.music.play()
+# mixer.music.set_volume()
 
 #establishing frame rate
 clock = pygame.time.Clock()
@@ -51,6 +58,25 @@ life_icon = pygame.image.load("../assets/sprites/raccoon_lives.png")
 life_icon.set_colorkey((255,255,255))
 lives = num_lives
 
+#adding a pause screen
+def paused():
+    pause = True
+    while pause:
+        screen.fill((255, 255, 255))
+        condition = score_font.render("Paused: Press any key to continue", True, (64, 224, 228))
+        screen.blit(condition, (screen_width / 2 - condition.get_width()/2, screen_height / 2))
+        pygame.display.flip()
+        mixer.music.pause()
+        for event in pygame.event.get():
+
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+            if event.type == pygame.KEYDOWN:
+                pause = False
+                mixer.music.unpause()
+
+
 while lives > 0 and running:
     for event in pygame.event.get():
         if event.type==pygame.QUIT:
@@ -66,6 +92,10 @@ while lives > 0 and running:
                 gunner.move_left()
             if event.key == pygame.K_RIGHT:
                 gunner.move_right()
+            if event.key == pygame.K_p:
+                pause = True
+                paused()
+
 
     #update the background
     screen.blit(background, (0, 0))
@@ -149,6 +179,8 @@ score_text = score_font.render(f"Score: {score}", True, (255,0,0))
 screen.blit(score_text, (screen_width/2 - score_text.get_width()/2 , screen_height/2 + score_text.get_height()))
 
 pygame.display.flip()
+
+mixer.music.stop()
 
 pygame.mixer.Sound.play(ohno)
 
