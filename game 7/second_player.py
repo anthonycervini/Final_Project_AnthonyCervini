@@ -25,11 +25,11 @@ class Ractwo(pygame.sprite.Sprite):
 
     def move_left(self):
         self.x_speed = -1 * player_speed
-        self.image = self.reverse_image
+        self.image = self.forward_image
 
     def move_right(self):
         self.x_speed = player_speed
-        self.image = self.forward_image
+        self.image = self.reverse_image
 
     def stop(self):
         self.x_speed = 0

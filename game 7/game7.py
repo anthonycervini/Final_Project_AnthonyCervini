@@ -83,7 +83,7 @@ while lives > 0 and running:
             running=False
         #control the gunner movement with keyboard
         gunner.stop()
-        second_player.stop()
+        #second_player.stop()
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_UP:
                 gunner.move_up()
@@ -96,6 +96,7 @@ while lives > 0 and running:
             if event.key == pygame.K_p:
                 pause = True
                 paused()
+        if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_w:
                 second_player.move_up()
             if event.key == pygame.K_s:
@@ -104,6 +105,8 @@ while lives > 0 and running:
                 second_player.move_left()
             if event.key == pygame.K_d:
                 second_player.move_right()
+        if event.type == pygame.KEYUP:
+            second_player.stop()
 
     #update the background
     screen.blit(background, (0, 0))
