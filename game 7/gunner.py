@@ -13,7 +13,7 @@ class Gunner(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.x = x
         self.y = y
-        self.rect.center = (x,y)
+        self.rect.center = (x, y)
         self.x_speed = 0
         self.y_speed = 0
 
@@ -51,6 +51,3 @@ class Gunner(pygame.sprite.Sprite):
 
     def draw(self, filth):
         filth.blit(self.image, self.rect)
-
-
-

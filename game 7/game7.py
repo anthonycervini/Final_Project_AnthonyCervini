@@ -31,7 +31,7 @@ background = screen.copy()
 draw_background(background)
 
 #draw the enemy rats
-add_rats(0)
+add_rats(5)
 
 #draw foods
 add_food(3)
@@ -55,7 +55,7 @@ extra_life = pygame.mixer.Sound("../assets/sounds/extra_life.mp3")
 
 #add life photos and lives
 life_icon = pygame.image.load("../assets/sprites/raccoon_lives.png")
-life_icon.set_colorkey((255,255,255))
+life_icon.set_colorkey((255, 255, 255))
 lives = num_lives
 
 #adding a pause screen
@@ -76,11 +76,11 @@ def paused():
                 pause = False
                 mixer.music.unpause()
 
-
+#while loop enabling game to run, player movement with keys
 while lives > 0 and running:
     for event in pygame.event.get():
-        if event.type==pygame.QUIT:
-            running=False
+        if event.type == pygame.QUIT:
+            running = False
         #control the gunner movement with keyboard
         gunner.stop()
         #second_player.stop()
@@ -122,11 +122,11 @@ while lives > 0 and running:
 
 
     #check for gunner and rat collisions
-    occurence = pygame.sprite.spritecollide(gunner, rats, True)
-    if occurence:
+    occurrence = pygame.sprite.spritecollide(gunner, rats, True)
+    if occurrence:
         pygame.mixer.Sound.play(rat_squeak)
-        lives -= len(occurence)
-        add_rats(len(occurence))
+        lives -= len(occurrence)
+        add_rats(len(occurrence))
 
     #check for gunner and food collisions
     instance = pygame.sprite.spritecollide(gunner, foods, True)
@@ -144,11 +144,11 @@ while lives > 0 and running:
         lives += len(result)
 
     # check for second player and rat collisions
-    occurence = pygame.sprite.spritecollide(second_player, rats, True)
-    if occurence:
+    occurrence = pygame.sprite.spritecollide(second_player, rats, True)
+    if occurrence:
         pygame.mixer.Sound.play(rat_squeak)
-        lives -= len(occurence)
-        add_rats(len(occurence))
+        lives -= len(occurrence)
+        add_rats(len(occurrence))
 
     # check for second player and food collisions
     instance = pygame.sprite.spritecollide(second_player, foods, True)
@@ -207,11 +207,11 @@ while lives > 0 and running:
     clock.tick(120)
 
 #game over screen
-message = score_font.render("THE RATS WON", True, (255,0,0))
+message = score_font.render("THE RATS WON", True, (255, 0, 0))
 screen.blit(message, (screen_width/2 - message.get_width()/2, screen_height/2))
 
-score_text = score_font.render(f"Score: {score}", True, (255,0,0))
-screen.blit(score_text, (screen_width/2 - score_text.get_width()/2 , screen_height/2 + score_text.get_height()))
+score_text = score_font.render(f"Score: {score}", True, (255, 0, 0))
+screen.blit(score_text, (screen_width/2 - score_text.get_width()/2, screen_height/2 + score_text.get_height()))
 
 pygame.display.flip()
 
@@ -221,7 +221,6 @@ pygame.mixer.Sound.play(ohno)
 
 while True:
     for event in pygame.event.get():
-        if event.type ==pygame.QUIT:
+        if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
-
