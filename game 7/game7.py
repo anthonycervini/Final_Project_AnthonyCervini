@@ -1,6 +1,5 @@
 import pygame
 from pygame import mixer
-import random
 import sys
 
 from parameters import *
@@ -9,19 +8,19 @@ from rat import rats
 from cottoncandy import cottons
 from background import draw_background, add_rats, add_food, add_cottoncandy
 from gunner import Gunner
+from second_player import Ractwo
 
 #initialize pygame
 pygame.init()
 
 #loading the screen
 screen = pygame.display.set_mode((screen_width, screen_height))
-pygame.display.set_caption('raccoon unleashed')
+pygame.display.set_caption('raccoons unleashed')
 
 #adding background music to play continuously
 mixer.init()
 mixer.music.load("../assets/sounds/electronic.ogg")
 mixer.music.play()
-# mixer.music.set_volume()
 
 #establishing frame rate
 clock = pygame.time.Clock()
@@ -32,7 +31,7 @@ background = screen.copy()
 draw_background(background)
 
 #draw the enemy rats
-add_rats(10)
+add_rats(0)
 
 #draw foods
 add_food(3)
@@ -40,8 +39,9 @@ add_food(3)
 #draw cotton candy
 add_cottoncandy(1)
 
-#add in the gunner
+#add in the players
 gunner = Gunner(screen_width/2, screen_height/2)
+second_player = Ractwo(screen_width/3, screen_height/3)
 
 #initialize the score
 score = 0
@@ -83,6 +83,7 @@ while lives > 0 and running:
             running=False
         #control the gunner movement with keyboard
         gunner.stop()
+        second_player.stop()
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_UP:
                 gunner.move_up()
@@ -95,7 +96,14 @@ while lives > 0 and running:
             if event.key == pygame.K_p:
                 pause = True
                 paused()
-
+            if event.key == pygame.K_w:
+                second_player.move_up()
+            if event.key == pygame.K_s:
+                second_player.move_down()
+            if event.key == pygame.K_a:
+                second_player.move_left()
+            if event.key == pygame.K_d:
+                second_player.move_right()
 
     #update the background
     screen.blit(background, (0, 0))
@@ -105,8 +113,9 @@ while lives > 0 and running:
     foods.update()
     #draw cotton candy
     cottons.update()
-    #draw gunner
+    #draw players
     gunner.update()
+    second_player.update()
 
 
     #check for gunner and rat collisions
@@ -125,6 +134,28 @@ while lives > 0 and running:
 
     #check for gunner and cotton candy collisions
     result = pygame.sprite.spritecollide(gunner, cottons, True)
+    if result:
+        pygame.mixer.Sound.play(extra_life)
+        score += len(result)
+        add_cottoncandy(len(result))
+        lives += len(result)
+
+    # check for second player and rat collisions
+    occurence = pygame.sprite.spritecollide(second_player, rats, True)
+    if occurence:
+        pygame.mixer.Sound.play(rat_squeak)
+        lives -= len(occurence)
+        add_rats(len(occurence))
+
+    # check for second player and food collisions
+    instance = pygame.sprite.spritecollide(second_player, foods, True)
+    if instance:
+        pygame.mixer.Sound.play(crunch)
+        score += len(instance)
+        add_food(len(instance))
+
+    # check for second player and cotton candy collisions
+    result = pygame.sprite.spritecollide(second_player, cottons, True)
     if result:
         pygame.mixer.Sound.play(extra_life)
         score += len(result)
@@ -156,6 +187,7 @@ while lives > 0 and running:
     foods.draw(screen)
     cottons.draw(screen)
     gunner.draw(screen)
+    second_player.draw(screen)
 
     #draw score
     text = score_font.render(f"{score}", True, (255, 0, 0))
