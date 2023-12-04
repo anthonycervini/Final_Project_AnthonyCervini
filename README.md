@@ -3,7 +3,7 @@ EW200 final project
 
 Sources:
 Captain Severson, Krish Malhotra, Reid Oldfield
-Previous calss materials
+Previous class materials
 https://www.pygame.org/docs
 
 
