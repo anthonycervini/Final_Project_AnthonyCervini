@@ -1,6 +1,13 @@
 # Final_Project_AnthonyCervini
 EW200 final project
 
+Sources:
+Captain Severson, Krish Malhotra, Reid Oldfield
+Previous calss materials
+https://www.pygame.org/docs
+
+
+
 Description:
 This game is a two player, keyboard movement game designed on a point based system with a limited number of lives.
 
